@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>admin</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+    <header class="navbar navbar-fixed-top navbar-default">
+        <div class="container">
+
+            <nav class="nav navbar-nav navbar-left">
+                <span>Naganocake-2nd</span>
+            </nav>
+            <nav>
+                <ul class="nav navbar-nav navbar-right">
+                    <!--if文でサインインとアウト時の表示を変更-->
+                    <% if admin_signed_in? %>
+                    <li><%= link_to ' 商品一覧'%></li>
+                    <li><%= link_to ' 会員一覧' ,admin_end_users_path %></li>
+                    <li><%= link_to ' 注文履歴一覧'%></li>
+                    <li><%= link_to ' ジャンル一覧' %></li>
+                    <li><%= link_to ' ログアウト', destroy_admin_session_path, method: :delete %>
+                    </li>
+                    <% else %>
+                    <li><%= link_to ' About',about_path%></li>
+                    <li><%= link_to ' 商品一覧' %></li>
+                    <li><%= link_to ' ログイン', new_end_user_session_path %></li>
+                    <li><%= link_to ' 新規登録', new_end_user_registration_path %></li>
+
+                    <% end %>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+    <% content_for :content do %>
+    <%= yield %>
+    <% end %>
+    <%= render template: "layouts/application" %>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<h1>enduser's show</h1>
+<%= link_to '編集する',end_users_edit_path %><br>
+<%= link_to 'パスワードを変更する' %>
+<table class="table table-bordered ">
+
+    <tbody>
+        <tr>
+            <td class="col-xs-2" >氏名</td>
+            <td class="col-xs-6"><%= current_end_user.last_name + " " + current_end_user.first_name  %></td>
+        </tr>
+        <tr>
+            <td>カナ</td>
+            <td><%= current_end_user.last_name_kana + " " + current_end_user.first_name_kana%></td>
+        </tr>
+        <tr>
+            <td>郵便番号</td>
+            <td><%= current_end_user.postal_code %></td>
+        </tr>
+        <tr>
+            <td>住所</td>
+            <td><%= current_end_user.address %></td>
+        </tr>
+        <tr>
+            <td>電話番号</td>
+            <td><%= current_end_user.telephone_number %></td>
+        </tr>
+        <tr>
+            <td>メールアドレス</td>
+            <td><%= current_end_user.email %></td>
+        </tr>
+
+    </tbody>
+</table>
+<strong>配送先</strong><%= link_to '一覧を見る' %>
+<strong>注文履歴</strong><%= link_to '一覧を見る' %>
