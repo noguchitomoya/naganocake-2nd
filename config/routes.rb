@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/" => "homes#top"
     resources :end_users,only: [:index,:show,:edit,:update]
+    resources :genres,only: [:index,:create,:edit,:update]
+    resources :items,only: [:index,:new,:create,:edit,:update,:show]
     
   end
 
@@ -47,6 +49,9 @@ Rails.application.routes.draw do
     patch "/end_users" => "end_users#update"
     get "end_users/unsubscribe" => "end_users#unsubscribe"
     patch "/end_users/withdraw" => "end_users#withdraw"
+
+    # public/items
+    resources :items,only: [:index,:show]
     
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

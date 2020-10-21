@@ -1,0 +1,26 @@
+<%= form_with(url: admin_items_path, model: @new_item, local: true) do |f| %>
+<%= f.attachment_field :image %>
+<div class="field item-box">
+    <%= f.label :name,"商品名" %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+</div>
+<div class="field item-box">
+    <%= f.label :introduction,"商品説明" %>
+    <%= f.text_area :introduction, autofocus: true, autocomplete: "introduction" %>
+</div>
+<div class="field item-box">
+    <%= f.label :genre_id,"ジャンル" %>
+    <%= f.collection_select(:genre_id,Genre.all, :id, :name)%>
+</div>
+<div class="field item-box">
+    <%= f.label :price,"税抜価格" %>
+    <%= f.text_field :price, autofocus: true, autocomplete: "price" %>
+</div>
+<div class="field item-box">
+    <label><%= f.radio_button :is_active, false %> 販売停止中 </label>
+    <label><%= f.radio_button :is_active, true %> 販売中</label>
+</div>
+<div class="actions item-box">
+    <%= f.submit "新規登録" %>
+</div>
+<% end %>

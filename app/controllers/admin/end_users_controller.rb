@@ -1,4 +1,4 @@
-class Admin::EndUsersController < ApplicationController
+class Admin::EndUsersController < Admin::Base
     def index
         @end_users = EndUser.with_deleted
         

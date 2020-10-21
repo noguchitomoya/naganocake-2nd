@@ -1,0 +1,27 @@
+<strong>商品一覧</strong>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">商品ID</th>
+            <th scope="col">商品名</th>
+            <th scope="col">税抜価格</th>
+            <th scope="col">ジャンル</th>
+            <th scope="col">ステータス</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @all_items.each do |item| %>
+        <tr>
+            <td><%= item.id %></td>
+            <td><%=link_to item.name ,admin_item_path(item.id)%></td>
+            <td><%= item.price%></td>
+            <td><%= Genre.find(item.genre_id).name %></td>
+            <% if item.is_active == true%>
+            <td>販売中</td>
+            <% else %>
+            <td>販売停止中</td>
+            <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
