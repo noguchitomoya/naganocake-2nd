@@ -7,6 +7,8 @@ class EndUser < ApplicationRecord
   acts_as_paranoid
   # paranoia の導入   https://bagelee.com/programming/ruby-on-rails/using_rails_paranoia/
 
+  has_many :cart_items
+
 
   validates :first_name, presence: true
   validates :last_name, presence: true

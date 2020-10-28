@@ -29,6 +29,8 @@ class Admin::ItemsController < Admin::Base
         
     end
 
+    private
+
     def item_params
         params.require(:item).permit(:name,:is_active,:image,:price,:introduction)
     end

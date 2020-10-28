@@ -1,0 +1,9 @@
+<%= attachment_image_tag @item, :image , size: "100x100"%><br>
+<strong><%= @item.name%></strong><br>
+<p><%= @item.introduction %></p><br>
+<strong><%= ((@item.price)*1.1).to_i%></strong><br>
+<%= form_with model: @new_cart_item,url: cart_items_path,local: true  do |f| %>
+<%= f.select :amount, [1,2,3,4,5], {include_blank: '数量を選んでください'}%>
+<%= f.hidden_field :item_id, :value => @item.id %>
+<%= f.submit %>
+<% end %>

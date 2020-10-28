@@ -2,6 +2,6 @@
 <br>
 <% @all_items.each do |item| %>
 <%= attachment_image_tag item, :image , size: "100x100"%><br>
-<%= item.name%><br>
+<%= link_to item.name,item_path(item.id)%><br>
 <%= ((item.price)*1.1).to_i%><br>
 <% end %>
