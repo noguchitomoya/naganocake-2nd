@@ -1,0 +1,43 @@
+<h1>注文履歴詳細</h1>
+<strong>購入者</strong><%= EndUser.find(@order.end_user_id).last_name + EndUser.find(@order.end_user_id).first_name%><br>
+<strong>配送先</strong><%= @order.postal_code + " " + @order.address + " " + @order.name%><br>
+<strong>支払い方法</strong><%= @order.payment_method_i18n%><br>
+<strong>注文ステータス</strong>
+<%= form_with model:[@order]  , url: admin_order_path ,local: true do |x|%>
+<%= x.select :status, Order.statuses_i18n.invert%>
+<%= x.submit '更新'%>
+<% end %>
+
+<br>
+
+<table class="table">
+    <thead>
+        <th>商品名</th>
+        <th>単価（税込み）</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th>製作ステータス</th>
+    </thead>
+    <tbody>
+        <% @all_order_details.each do |f| %>
+        <tr>
+            <td><%= Item.find(f.item_id).name %></td>
+            <td><%= f.price %></td>
+            <td><%= f.amount %></td>
+            <td><%= f.amount * f.price %></td>
+            <td>
+                <%= form_with model:[f]  , url: admin_order_detail_path(f.id) ,local: true do |x|%>
+
+                <%= x.select :making_status, OrderDetail.making_statuses_i18n.invert%>
+                <%= x.submit '更新'%>
+                <% end %>
+            </td>
+        </tr>
+        <% end %>
+
+    </tbody>
+</table>
+
+<strong>商品合計</strong><%= @order.total_payment - @order.shipping_cost%><br>
+<strong>送料</strong><%= @order.shipping_cost%><br>
+<strong>請求金額合計</strong><%= @order.total_payment  %><br>

@@ -1,0 +1,46 @@
+confirm
+<table class="table">
+    <thead>
+        <th >商品名</th>
+        <th >単価（税込み）</th>
+        <th >数量</th>
+        <th >小計</th>
+    </thead>
+    <% sum=0 %>
+    <tbody>
+        <% @cart_items.each do |x| %>
+        <tr>
+            <% item = Item.find(x.item_id)%>
+            <td><%= item.name %></td>
+            <td><%= tax_price = ((item.price)*1.1).to_i%></td>
+            <td><%= x.amount %></td>
+            <td><%= tax_price*x.amount%></td>
+            <% sum += tax_price*x.amount%>
+        </tr>
+        <% end %>
+
+    </tbody>
+</table>
+
+<strong>送料</strong><p><%=@order.shipping_cost %><p>
+<strong>商品合計</strong><p><%= sum %><p>
+<strong>請求金額</strong><p><%= sum + @order.shipping_cost %><p>
+
+
+<h3>支払い方法</h3>
+<%= @order.payment_method_i18n %>
+<h3>住所</h3>
+<%= @order.postal_code + @order.address + @order.name %>
+
+
+
+<%= form_with model:@order_for_create,url: orders_path,local:true do |f|%>
+    <%= f.hidden_field :payment_method, :value => @order.payment_method%>
+    <%= f.hidden_field :postal_code, :value => @order.postal_code%>
+    <%= f.hidden_field :shipping_cost, :value => @order.shipping_cost%>
+    <%= f.hidden_field :address, :value => @order.address%>
+    <%= f.hidden_field :name, :value => @order.name%>
+    <%= f.hidden_field :end_user_id, :value => current_end_user.id%>
+    <%= f.hidden_field :total_payment, :value => sum + @order.shipping_cost%>
+    <%= f.submit '購入を確定する',data: { confirm: "購入を確定しますか？"}%>
+<% end %>

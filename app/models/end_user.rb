@@ -8,6 +8,8 @@ class EndUser < ApplicationRecord
   # paranoia の導入   https://bagelee.com/programming/ruby-on-rails/using_rails_paranoia/
 
   has_many :cart_items
+  has_many :addresses
+  has_many :orders
 
 
   validates :first_name, presence: true

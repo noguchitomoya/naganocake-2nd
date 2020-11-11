@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     resources :end_users,only: [:index,:show,:edit,:update]
     resources :genres,only: [:index,:create,:edit,:update]
     resources :items,only: [:index,:new,:create,:edit,:update,:show]
+
+    resources :orders,only: [:index,:show,:update]
+
+    resources :order_details,only: [:update]
     
   end
 
@@ -56,6 +60,15 @@ Rails.application.routes.draw do
     # public/cart_items
     delete "/cart_items/destroy_all" => "cart_items#destroy_all"
     resources :cart_items,only: [:index,:update,:destroy,:create]
+
+    # public/orders
+    post "/orders/confirm" => "orders#confirm"
+    get "/orders/thanks" => "orders#thanks"
+    resources :orders,only: [:new,:create,:index,:show]
+
+    # public/addresses
+    resources :addresses,only: [:index,:edit,:create,:update,:destroy]
+
     
     
   end

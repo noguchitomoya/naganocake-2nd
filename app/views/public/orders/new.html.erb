@@ -1,0 +1,41 @@
+<h1>注文情報入力</h1>
+<%= form_with model:[@new_address,@new_order]  , url: orders_confirm_path ,local: true do |f|%>
+<h3>支払い方法</h3>
+<label><%= f.radio_button :payment_method, :credit_card %>クレジットカード</label><br>
+<label><%= f.radio_button :payment_method, :bank_transfer %>銀行振り込み</label>
+
+<h3>お届け先</h3>
+<label><%= f.radio_button :select_address, 0 %>
+    ご自身の住所<br>
+    <%= current_end_user.postal_code + " " + current_end_user.address + " " +  current_end_user.last_name + current_end_user.first_name%>
+
+
+
+</label><br>
+<label><%= f.radio_button :select_address, 1 %>
+    登録住所から選択
+    <%= f.select :address_index, current_end_user.addresses.map { |add| [add.postal_code + add.address + add.name, add.id] },{ include_blank: '選択してください'} %>
+
+
+
+
+</label><br>
+<label><%= f.radio_button :select_address, 2 %>
+    新しいお届け先
+    <div class="field ">
+        <%= f.label :postal_code,"郵便番号" %>
+        <%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code" %>
+    </div>
+    <div class="field ">
+        <%= f.label :address,"住所" %>
+        <%= f.text_field :address, autofocus: true, autocomplete: "address" %>
+    </div>
+    <div class="field">
+        <%= f.label :name,"宛名" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+
+</label>
+
+<%= f.submit '確認画面へすすむ' %>
+<% end %>
